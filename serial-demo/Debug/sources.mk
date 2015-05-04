@@ -29,6 +29,7 @@ CPP_DEPS :=
 SUBDIRS := \
 startup \
 Src \
+Src/newlib \
 Middlewares/ST/STM32_USB_Device_Library/Core/Src \
 Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src \
 Drivers/STM32F4xx_HAL_Driver/Src \
