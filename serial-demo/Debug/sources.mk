@@ -27,10 +27,9 @@ CPP_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-system/src/stm32f4-hal \
-system/src/newlib \
-system/src/diag \
-system/src/cortexm \
-system/src/cmsis \
-src \
+startup \
+Src \
+Middlewares/ST/STM32_USB_Device_Library/Core/Src \
+Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src \
+Drivers/STM32F4xx_HAL_Driver/Src \
 

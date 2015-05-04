@@ -8,12 +8,11 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
--include system/src/stm32f4-hal/subdir.mk
--include system/src/newlib/subdir.mk
--include system/src/diag/subdir.mk
--include system/src/cortexm/subdir.mk
--include system/src/cmsis/subdir.mk
--include src/subdir.mk
+-include startup/subdir.mk
+-include Src/subdir.mk
+-include Middlewares/ST/STM32_USB_Device_Library/Core/Src/subdir.mk
+-include Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/subdir.mk
+-include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
 -include subdir.mk
 -include objects.mk
 
@@ -61,7 +60,7 @@ all: serial-demo.elf secondary-outputs
 serial-demo.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross ARM C++ Linker'
-	arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T mem.ld -T libs.ld -T sections.ld -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"serial-demo.map" -o "serial-demo.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mthumb-interwork -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T "C:\code\rust-serial-f4-demo\serial-demo\ldscripts\STM32F407VG_FLASH.ld" -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"serial-demo.map" -o "serial-demo.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
