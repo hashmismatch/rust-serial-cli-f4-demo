@@ -34,6 +34,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
+#include "stm32f4xx_hal_uart.h"
 #include "usart.h"
 #include "usb_device.h"
 #include "gpio.h"
@@ -58,6 +59,7 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN 0 */
 
 /* USER CODE END 0 */
+
 
 int main(void)
 {
@@ -91,6 +93,7 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
+
 
   }
   /* USER CODE END 3 */
