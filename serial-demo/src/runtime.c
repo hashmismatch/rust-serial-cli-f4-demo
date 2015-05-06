@@ -1,3 +1,0 @@
-void _init(void) {
-
-}

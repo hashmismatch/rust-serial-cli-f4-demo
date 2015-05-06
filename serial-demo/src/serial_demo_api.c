@@ -2,7 +2,7 @@
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_hal_uart.h"
 
-void stm32_delay(uint16_t milli) {
+void stm32_delay(uint32_t milli) {
 	HAL_Delay(milli);
 }
 

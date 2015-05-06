@@ -61,7 +61,7 @@ all: serial-demo.elf secondary-outputs
 serial-demo.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross ARM C++ Linker'
-	arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mthumb-interwork -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T "C:\code\rust-serial-f4-demo\serial-demo\ldscripts\STM32F407VG_FLASH.ld" -nostartfiles -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"serial-demo.map" -o "serial-demo.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mthumb-interwork -mfloat-abi=soft -Og -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -ffreestanding -fno-move-loop-invariants -Wall -Wextra  -g3 -T "C:\code\rust-serial-f4-demo\serial-demo\ldscripts\STM32F407VG_FLASH.ld" -Xlinker --gc-sections -L"../ldscripts" -Wl,-Map,"serial-demo.map" -o "serial-demo.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
