@@ -59,4 +59,25 @@ impl STM32_USART {
 			}
 		}
 	}
+
+	pub fn try_read_byte(&self) -> Option<u8> {
+		unsafe {
+			let r = usart2_try_get_byte();
+			if r == -1 { return None; }
+			return Some(r as u8);
+		}
+	}
+}
+
+use cli::{CliTerminal, CliPromptTerminal};
+impl CliTerminal for STM32_USART {
+	fn output_line(&mut self, line: &str) {
+		self.println(line);
+	}
+}
+
+impl CliPromptTerminal for STM32_USART {
+	fn print_bytes(&self, bytes: &[u8]) {
+		self.print_bytes(bytes);
+	}
 }
