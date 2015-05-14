@@ -29,3 +29,30 @@ int16_t usart2_try_get_byte() {
     return -1;
 }
 
+
+// debug leds
+uint16_t stm32_led_to_pin(uint8_t led) {
+	switch (led) {
+		case 1:
+			return GPIO_PIN_14;
+		case 2:
+			return GPIO_PIN_12;
+		case 3:
+			return GPIO_PIN_15;
+		default:
+			return GPIO_PIN_13;
+	}
+}
+
+
+void stm32_toggle_led(uint8_t led) {
+	HAL_GPIO_TogglePin(GPIOD, stm32_led_to_pin(led));
+}
+
+void stm32_enable_led(uint8_t led) {
+	HAL_GPIO_WritePin(GPIOD, stm32_led_to_pin(led), GPIO_PIN_SET);
+}
+
+void stm32_disable_led(uint8_t led) {
+	HAL_GPIO_WritePin(GPIOD, stm32_led_to_pin(led), GPIO_PIN_RESET);
+}
