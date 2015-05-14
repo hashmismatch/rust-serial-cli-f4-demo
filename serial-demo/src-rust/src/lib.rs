@@ -65,6 +65,101 @@ pub extern fn serial_demo_main_loop() -> ! {
 		}
 
 		{
+			let green = CliPropertyVar {
+				var_name: "led_green".to_string(),
+				val_hint: "on|off".to_string(),
+				var_value: false,
+				var_output: |v| {
+					(if *v == true { "on" } else { "off" }).to_string()
+				},
+				var_input: |v| {
+					match v {
+						"on" => {
+							stm32_enable(STM32Led::Green);
+							Some(true)
+						}
+						"off" => {
+							stm32_disable(STM32Led::Green);
+							Some(false)
+						}
+						_ => None
+					}
+				}
+			};
+
+			let blue = CliPropertyVar {
+				var_name: "led_blue".to_string(),
+				val_hint: "on|off".to_string(),
+				var_value: false,
+				var_output: |v| {
+					(if *v == true { "on" } else { "off" }).to_string()
+				},
+				var_input: |v| {
+					match v {
+						"on" => {
+							stm32_enable(STM32Led::Blue);
+							Some(true)
+						}
+						"off" => {
+							stm32_disable(STM32Led::Blue);
+							Some(false)
+						}
+						_ => None
+					}
+				}
+			};
+
+			let red = CliPropertyVar {
+				var_name: "led_red".to_string(),
+				val_hint: "on|off".to_string(),
+				var_value: false,
+				var_output: |v| {
+					(if *v == true { "on" } else { "off" }).to_string()
+				},
+				var_input: |v| {
+					match v {
+						"on" => {
+							stm32_enable(STM32Led::Red);
+							Some(true)
+						}
+						"off" => {
+							stm32_disable(STM32Led::Red);
+							Some(false)
+						}
+						_ => None
+					}
+				}
+			};
+
+			let orange = CliPropertyVar {
+				var_name: "led_orange".to_string(),
+				val_hint: "on|off".to_string(),
+				var_value: false,
+				var_output: |v| {
+					(if *v == true { "on" } else { "off" }).to_string()
+				},
+				var_input: |v| {
+					match v {
+						"on" => {
+							stm32_enable(STM32Led::Orange);
+							Some(true)
+						}
+						"off" => {
+							stm32_disable(STM32Led::Orange);
+							Some(false)
+						}
+						_ => None
+					}
+				}
+			};
+
+			cmds.push(Box::new(green) as Box<CliCommand>);
+			cmds.push(Box::new(blue) as Box<CliCommand>);
+			cmds.push(Box::new(red) as Box<CliCommand>);
+			cmds.push(Box::new(orange) as Box<CliCommand>);
+		}
+
+		{
 			let some_int = CliPropertyVar {
 				var_name: "some_int".to_string(),
 				val_hint: "positive integer".to_string(),
@@ -97,7 +192,7 @@ pub extern fn serial_demo_main_loop() -> ! {
 
 		let u2_byte = usart2.try_read_byte();
 		match u2_byte {
-			Some(b) => {
+			Some(b) => {				
 				usart2_cli.handle_received_byte(b, &usart2.clone(), commands.as_mut_slice(), &mut usart2);
 			}
 			_ => {}

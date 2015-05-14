@@ -7,6 +7,9 @@ extern {
 	fn usart2_send_string(str: *const u8, len: u16);
 	fn usart2_send_byte(byte: u8);
 	fn usart2_try_get_byte() -> i16;
+	fn stm32_toggle_led(led: u8);
+	fn stm32_enable_led(led: u8);
+	fn stm32_disable_led(led: u8);
 }
 
 pub fn delay(millis: u32) {
@@ -79,5 +82,41 @@ impl CliTerminal for STM32_USART {
 impl CliPromptTerminal for STM32_USART {
 	fn print_bytes(&self, bytes: &[u8]) {
 		self.print_bytes(bytes);
+	}
+}
+
+pub enum STM32Led {
+	Red,
+	Green,
+	Blue,
+	Orange
+}
+
+impl STM32Led {
+	fn to_api(&self) -> u8 {
+		match *self {
+			STM32Led::Red => 1,
+			STM32Led::Green => 2,
+			STM32Led::Blue => 3,
+			STM32Led::Orange => 0
+		}
+	}
+}
+
+pub fn stm32_toggle(led: STM32Led) {
+	unsafe {
+		stm32_toggle_led(led.to_api());
+	}
+}
+
+pub fn stm32_enable(led: STM32Led) {
+	unsafe {
+		stm32_enable_led(led.to_api());
+	}
+}
+
+pub fn stm32_disable(led: STM32Led) {
+	unsafe {
+		stm32_disable_led(led.to_api());
 	}
 }
